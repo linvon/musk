@@ -33,4 +33,4 @@ assets/products/*.jpg
 
 ## 注意
 
-财富金额和商品价格都是演示数据。商品图片来自 Wikimedia Commons，来源见 `image-credits.html`。
+财富金额和商品价格都是演示数据。商品图片主要来自 Wikimedia Commons 与品牌公开页面，来源见 `image-credits.html`。
