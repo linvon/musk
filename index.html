@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>花光伊隆·马斯克财富模拟器</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <p class="eyebrow">Glass Fortune Simulator</p>
+          <h1>花光伊隆·马斯克的财富</h1>
+          <p class="hero-copy">从 Apple Vision Pro 到 X Corp，把一份超级账单堆到天际线那么高。</p>
+        </div>
+        <section class="wealth-total-card" aria-label="财富总额">
+          <span>财富总额</span>
+          <strong id="wealthTotalDisplay">$430,000,000,000</strong>
+          <small>估算财富池</small>
+        </section>
+      </header>
+
+      <section class="scoreboard" aria-label="消费统计">
+        <article class="metric metric-primary">
+          <span>剩余财富</span>
+          <strong id="remainingAmount">$430,000,000,000</strong>
+        </article>
+        <article class="metric">
+          <span>已花费</span>
+          <strong id="spentAmount">$0</strong>
+        </article>
+        <article class="metric">
+          <span>已花掉</span>
+          <strong id="spentPercent">0%</strong>
+        </article>
+        <div class="progress-wrap">
+          <div class="progress-label">
+            <span id="milestoneText">先拿下一件小东西，看看这个财富池有多深。</span>
+            <span id="exactRemaining">$430,000,000,000</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
+      </section>
+
+      <main class="layout">
+        <aside class="category-panel" aria-label="分类">
+          <button class="category-btn is-active" data-category="all">全部资产</button>
+          <button class="category-btn" data-category="tech">科技单品</button>
+          <button class="category-btn" data-category="cars">车库</button>
+          <button class="category-btn" data-category="aircraft">飞机</button>
+          <button class="category-btn" data-category="marine">游艇海岛</button>
+          <button class="category-btn" data-category="estate">地产场馆</button>
+          <button class="category-btn" data-category="space">太空</button>
+          <button class="category-btn" data-category="asset">公司资产</button>
+        </aside>
+
+        <section class="shop-area" aria-label="商品区">
+          <div class="mobile-tabs" aria-label="移动端分类">
+            <button class="category-btn is-active" data-category="all">全部</button>
+            <button class="category-btn" data-category="tech">科技</button>
+            <button class="category-btn" data-category="cars">车库</button>
+            <button class="category-btn" data-category="aircraft">飞机</button>
+            <button class="category-btn" data-category="marine">海岛</button>
+            <button class="category-btn" data-category="estate">地产</button>
+            <button class="category-btn" data-category="space">太空</button>
+            <button class="category-btn" data-category="asset">资产</button>
+          </div>
+
+          <div class="toolbar">
+            <div>
+              <h2>奢华消费清单</h2>
+              <p>真实图片，本地静态资源，价格为演示估算。</p>
+            </div>
+            <div class="toolbar-actions">
+              <button id="randomBuyBtn" class="icon-btn" type="button" title="随机购买">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+                </svg>
+                <span>随机挥霍</span>
+              </button>
+              <button id="resetBtn" class="icon-btn ghost" type="button" title="重置账单">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 12a9 9 0 1 0 3-6.7M3 4v6h6" />
+                </svg>
+                <span>重置</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="productGrid" class="product-grid"></div>
+
+          <section class="custom-panel" aria-label="自定义消费">
+            <div>
+              <h2>自定义消费</h2>
+              <p>写下一个具体项目，直接把它塞进账单。</p>
+            </div>
+            <form id="customForm" class="custom-form">
+              <label>
+                名称
+                <input id="customName" type="text" maxlength="34" placeholder="例如：洛杉矶山顶私人庄园" required />
+              </label>
+              <label>
+                单价
+                <div class="input-with-unit">
+                  <input id="customPrice" type="number" min="0.01" step="0.01" placeholder="500" required />
+                  <span>百万美元</span>
+                </div>
+              </label>
+              <button class="primary-btn" type="submit">加入商品</button>
+            </form>
+          </section>
+
+          <footer class="site-footer">
+            <a href="./image-credits.html">图片来源与许可</a>
+          </footer>
+        </section>
+
+        <aside id="receiptPanel" class="receipt-panel" aria-label="账单">
+          <div class="receipt-head">
+            <div>
+              <p class="eyebrow">Receipt</p>
+              <h2>消费账单</h2>
+            </div>
+            <button id="closeReceiptBtn" class="close-btn" type="button" aria-label="关闭账单">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="receipt-summary">
+            <span>账单合计</span>
+            <strong id="receiptTotal">$0</strong>
+          </div>
+          <div id="receiptList" class="receipt-list"></div>
+          <div class="receipt-empty" id="receiptEmpty">
+            <strong>账单还是空的</strong>
+            <span>先买一件，玻璃柜里就会亮起来。</span>
+          </div>
+          <div class="receipt-actions">
+            <button id="spendRestBtn" class="primary-btn" type="button">花光剩余</button>
+            <button id="shareBtn" class="icon-btn ghost" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 16V3M7 8l5-5 5 5" />
+              </svg>
+              <span>分享文案</span>
+            </button>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <div id="mobileBackdrop" class="mobile-backdrop"></div>
+    <nav class="mobile-bottom-bar" aria-label="移动端账单栏">
+      <div>
+        <span>已花费</span>
+        <strong id="mobileSpent">$0</strong>
+      </div>
+      <button id="openReceiptBtn" class="primary-btn" type="button">查看账单</button>
+    </nav>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="./script.js"></script>
+  </body>
+</html>
